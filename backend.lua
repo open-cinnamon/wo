@@ -1,26 +1,39 @@
 local system = require('system')
-local math = require('math')
 local backend = {}
 backend.__index = backend
 
-function backend:install(name)
-  local result_name = name .. '-search_result-' .. tostring(math.random(0, 90))
-  local file = io.open(name, "a")
+function backend:install_gh(name)
+  local result_name = os.tmpname()
+  print('File: ' .. result_name)
   local servers = {}
 
-  os.execute(string.format('git search repos %s > %s', name, result_name))
+  local command = string.format(
+    'gh api "search/repositories?q=%s" --paginate --jq \'.items[] | .full_name + " : " + (.stargazers_count|tostring) + " : " + .description\' > %s',
+    name, result_name
+  )
 
+  print(command)
+
+  os.execute(command)
+
+  local file = io.open(result_name, "r")
   if not file then
-    print('Unable to open file: ' .. name)
+    print('Unable to open file: ' .. result_name)
   else
-    for line in file:lines() do
-      print('Server found: ' .. line)
-      table.insert(servers, line)
-    end
-  end
+    local line = file:read()
+    local i = 0
 
+    while line ~= nil do
+      print(tostring(i) .. ': ' .. line)
+      line = file:read()
+      i = i + 1
+    end
+
+    --io.write('Choose a server: ')
+    --local server = io.read("n")
+  end
 end
 
-backend:install('wys')
+backend:install_gh('xang')
 
 return backend -- RTS medieval
