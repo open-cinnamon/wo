@@ -29,3 +29,5 @@ function packs:open(path)
   file:close() -- Close the file
   return {version, servers}
 end
+
+return package

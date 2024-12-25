@@ -12,7 +12,7 @@ local wo = {}
 function wo:handle_argv(path)
   for a in ipairs(arg) do
     if a == 'install' then
-      
+      -- todo
     end
   end
 end

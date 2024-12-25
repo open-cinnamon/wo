@@ -3,15 +3,14 @@ local utiles = require('utiles')
 local gh = {}
 gh.__index = gh
 
-function gh:install(name, tmp)
-  local command = string.format(
+function gh:get_servers(name, tmp)
+  os.execute(string.format(
     'gh api "search/repositories?q=%s" --paginate --jq \'.items[] | .full_name + " : " + .name + " : " + (.stargazers_count|tostring)\' > %s',
-    name, tmp
-  )
+    name, tmp))
+end
 
-  print(command)
-
-  os.execute(command)
+function gh:install(server, output)
+  os.execute(string.format('gh repos clone %s %s', server, output))
 end
 
 function gh:get_list(tmp)
@@ -47,12 +46,15 @@ function gh:parse_list(name, list)
 end
 
 function gh:call(name, tmp)
-  gh:execute(name, tmp)
-  local first = gh:get_list(tmp)
-  local second = gh:parse_list(name, first)
+  gh:get_servers(name, tmp)
+  local servers = gh:parse_list(name, gh:get_list(tmp))
 
-  
+  for index, value in ipairs(servers) do
+    print(string.format('[%s]: %s', tostring(index), value))
+  end
 
+  io.write('Choose a server: ')
+  local server = tonumber(io.read())
 end
 
 return gh
