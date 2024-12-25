@@ -33,20 +33,25 @@ function gh:get_list(tmp)
 end
 
 function gh:parse_list(name, list)
-  local selected = 0
-  local found = 0
+  local selected = {}
+
   for server in ipairs(list) do
-    found = found + 1
     local mismatches = utiles:compare(server, name)
 
-    if mismatches / name.len() > 0.5 then
-      selected = selected + 1
+    if mismatches / name.len() < 0.5 then
+      table.insert(selected, server)
     end
   end
+
+  return selected
 end
 
 function gh:call(name, tmp)
   gh:execute(name, tmp)
+  local first = gh:get_list(tmp)
+  local second = gh:parse_list(name, first)
+
+  
 
 end
 
