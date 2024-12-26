@@ -1,5 +1,5 @@
 local system = {
-  path = ''
+  path = '',
 }
 
 system.__index = system
@@ -22,12 +22,12 @@ function system:get_os()
       elseif distro:find("arch") then
         return 'arch'
       else
-        return 'debian'
+        return 'linux'
       end
     elseif uname == "Darwin" then
       return 'macos'
     else
-      return 'debian/ubuntu'
+      return '???'
     end
   end
 end
