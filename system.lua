@@ -1,4 +1,5 @@
 local fs = require('filesystem')
+local sys = require('sys')
 
 local system = {
   path = '',
@@ -6,36 +7,8 @@ local system = {
 
 system.__index = system
 
-function system:get_os()
-  -- Identify the OS
-  local os_name = os.getenv("OS") -- Works for Windows
-  if os_name and os_name:find("Windows") then
-    return 'windows'
-  else
-    -- Identify Linux or macOS
-    local uname = io.popen("uname -s"):read("*l") -- Execute "uname -s" to get the system name
-    if uname == "Linux" then
-      -- Check Linux distribution
-      local distro = io.popen("cat /etc/os-release | grep '^ID='"):read("*l")
-      if distro:find("debian") or distro:find("ubuntu") or distro:find("mint") then
-        return 'debian'
-      elseif distro:find("fedora") or distro:find("rhel") then
-        return 'fedora'
-      elseif distro:find("arch") then
-        return 'arch'
-      else
-        return 'linux'
-      end
-    elseif uname == "Darwin" then
-      return 'macos'
-    else
-      return '???'
-    end
-  end
-end
-
 function system:get_path()
-  local os_name = os.getenv("OS")
+  local os_name = sys.get_os()
   local home = os.getenv("HOME")
 
   if os_name and os_name:find("Windows") then
@@ -72,6 +45,8 @@ function system:check_up()
   local system_os = system:get_os()
   print('Detected operating system: ' .. system_os)
 end
+
+print(sys:get_os())
 
 return system
 
