@@ -21,4 +21,7 @@ function utiles:compare(name, real)
   return failures
 end
 
+-- Todo
+-- Add more utiles ...
+
 return utiles

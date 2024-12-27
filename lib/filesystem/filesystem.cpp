@@ -39,6 +39,11 @@ extern "C" {
     return 1;
   }
 
+  static int full_path(lua_State *L) {
+    lua_pushstring(L, std::filesystem::absolute(luaL_checkstring(L, 0)).c_str());
+    return 1;
+  }
+
   static const struct luaL_Reg mylib[] = {
     {"create", create_directory},
     {"delete", delete_directory},

@@ -10,7 +10,10 @@ local wo = {}
   update <PACKAGE?> : Will update package, else, all packages
 ]]
 
-function wo:handle_argv(path)
+-- !! TODO (urgent)
+-- !! Recode this 
+
+function wo:handle_argv(path) -- !! TODO !!
   for a in ipairs(arg) do
     if a == 'install' then
       -- todo
@@ -18,7 +21,7 @@ function wo:handle_argv(path)
   end
 end
 
-function wo:main()
+function wo:main() -- !! TODO !!
   -- First of all, we need to check git.
   system:check_up()
   local path = system:init()

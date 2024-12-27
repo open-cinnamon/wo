@@ -30,4 +30,4 @@ function packs:open(path)
   return {version, servers}
 end
 
-return package
+return packs -- ... I was returning « packages » instead of « packs » ....

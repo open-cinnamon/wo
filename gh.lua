@@ -58,3 +58,10 @@ function gh:call(name, tmp)
 end
 
 return gh
+
+--[[ 
+  todo
+    - Threading installation
+  * - Files (HOME/wo/servers)
+  * - Cache 
+]]
