@@ -3,8 +3,13 @@ local backend = {} -- For the front end ...
 backend.__index = backend
 
 --[[
-  Make a file (and update this file every time we launch the application)
-  When we download an application, we look at the server, and dependencies's servers
+  Idea is to have files which contains some servers. 
+  These servers had links to servers into them.
+  The « update » argument will ping all of these servers, to update them.
 ]]
+
+function backend:update(file)
+  
+end
 
 return backend -- RTS medieval
