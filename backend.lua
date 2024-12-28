@@ -8,8 +8,12 @@ backend.__index = backend
   The « update » argument will ping all of these servers, to update them.
 ]]
 
-function backend:update(file)
-  
+function backend:update(name)
+
+end
+
+function backend:install(name)
+
 end
 
 return backend -- RTS medieval
