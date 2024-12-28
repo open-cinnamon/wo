@@ -21,6 +21,25 @@ function utiles:compare(name, real)
   return failures
 end
 
+function utiles:compare_letters(name, real)
+  return utiles:compare(tostring(name):lower(), tostring(real):lower())
+end
+
+
+-- wys-prog/open-cinnamon-host : open-cinnamon-host : 1
+--                               ^^^^^^^^^^^^^^^^^^
+--                                the name !!! 
+function utiles:get_ghserver_name(line)
+  -- Ensure the input is a string
+  line = tostring(line)
+
+  -- Match the part between "--" and the first " : "
+  local name = string.match(line, "/([^:]+) :")
+
+  return name
+end
+
+
 -- Todo
 -- Add more utiles ...
 
